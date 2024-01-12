@@ -48,3 +48,70 @@ print("Quantidade de alunos reprovados:", turma.quantReprovados())
 print("Menor nota da turma:", turma.menorNota())
 print("Maior nota da turma: ", turma.maiorNota())
 print(turma)
+
+from abc import ABC, abstractmethod
+import numpy as np
+
+class AnaliseDados(ABC):
+    @abstractmethod
+    def __init__(self, dtype):
+        pass
+
+    @abstractmethod
+    def entradaDeDados(self, dado):
+        pass
+
+    @abstractmethod
+    def mostraMediana(self):
+        pass
+
+    @abstractmethod
+    def mostraMenor(self):
+        pass
+
+    @abstractmethod
+    def mostraMaior(self):
+        pass
+
+    @abstractmethod
+    def listarEmOrdem(self):
+        pass
+
+    @abstractmethod
+    def __iter__(self):
+        pass
+
+    @abstractmethod
+    def __str__(self):
+        pass
+
+class ListaSalarios(AnaliseDados):
+    def __init__(self):
+        super().__init__(np.float64)
+        self.__lista = np.array([])
+
+    def entradaDeDados(self, salario):
+        self.__lista = np.append(self.__lista, salario)
+
+    def mostraMediana(self):
+        mediana = np.median(self.__lista)
+        print("Mediana:", mediana)
+
+    def mostraMenor(self):
+        menor = np.min(self.__lista)
+        print("Menor:", menor)
+
+    def mostraMaior(self):
+        maior = np.max(self.__lista)
+        print("Maior:", maior)
+
+    def listarEmOrdem(self):
+        print("Lista de Salários em Ordem:")
+        for salario in np.sort(self.__lista):
+            print(salario)
+
+    def __iter__(self):
+        return iter(self.__lista)
+
+    def __str__(self):
+        return str(self.__lista)
